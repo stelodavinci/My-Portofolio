@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Hafiz Setiawan — IT Developer & Web Developer</title>
+    <meta name="description" content="Portfolio profesional Muhammad Hafiz Setiawan — IT Developer & Web Developer berbasis di Jakarta. Spesialisasi PHP, Python, IoT, dan IT Support.">
+    <meta name="keywords" content="web developer, IT developer, Jakarta, PHP, Python, IoT, portfolio">
+    <meta name="author" content="Muhammad Hafiz Setiawan">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #161616;
+            --bg-card-hover: #1c1c1c;
+            --bg-elevated: #1a1a1a;
+            --border-subtle: #222222;
+            --border-light: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #ffffff;
+            --accent-dim: rgba(255, 255, 255, 0.08);
+            --accent-glow: rgba(255, 255, 255, 0.04);
+            --gradient-subtle: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-spring: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
+            --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --container-max: 1100px;
+            --nav-height: 64px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #0a0a0a;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            transition: all var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.92);
+            box-shadow: 0 1px 24px rgba(0,0,0,0.3);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .nav-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .nav-logo span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: var(--accent-dim);
+        }
+
+        .nav-links a.active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all var(--transition-fast);
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 560px;
+            line-height: 1.8;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: var(--nav-height);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--accent-dim);
+            border: 1px solid var(--border-light);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .line {
+            display: block;
+        }
+
+        .hero h1 .line-accent {
+            color: var(--text-muted);
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-dim);
+            border-color: #444;
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            font-size: 1.1em;
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: float-hint 3s ease-in-out infinite;
+        }
+
+        .hero-scroll-hint .scroll-line {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(to bottom, var(--text-muted), transparent);
+            animation: scroll-line 2s ease-in-out infinite;
+        }
+
+        @keyframes float-hint {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        @keyframes scroll-line {
+            0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+            50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+            100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-top: 40px;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+
+        .about-highlights {
+            display: grid;
+            gap: 16px;
+        }
+
+        .highlight-card {
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-smooth);
+        }
+
+        .highlight-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .highlight-number {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .highlight-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== SKILLS ===== */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .skill-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+            cursor: default;
+        }
+
+        .skill-pill:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .skill-pill .skill-icon {
+            font-size: 1.1em;
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            position: relative;
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-smooth);
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .project-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-index {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .project-client {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 20px;
+        }
+
+        .project-tag {
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: var(--accent-dim);
+            border-radius: 100px;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== EXPERIENCE ===== */
+        .timeline {
+            position: relative;
+            margin-top: 48px;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--border-light), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 48px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -36px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            border: 2px solid var(--bg-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .timeline-item:first-child .timeline-dot {
+            background: var(--text-primary);
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+        }
+
+        .timeline-date {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .timeline-role {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .timeline-company {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .timeline-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== CERTIFICATIONS ===== */
+        .certifications {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .cert-card {
+            padding: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-smooth);
+        }
+
+        .cert-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .cert-issuer {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .cert-issuer .google-dots {
+            display: inline-flex;
+            gap: 2px;
+        }
+
+        .cert-issuer .google-dots span {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+        }
+
+        .cert-issuer .google-dots span:nth-child(1) { background: #4285F4; }
+        .cert-issuer .google-dots span:nth-child(2) { background: #EA4335; }
+        .cert-issuer .google-dots span:nth-child(3) { background: #FBBC05; }
+        .cert-issuer .google-dots span:nth-child(4) { background: #34A853; }
+
+        .cert-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.4;
+        }
+
+        .cert-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-top: 40px;
+            align-items: start;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateX(4px);
+        }
+
+        .contact-link .link-icon {
+            font-size: 1.2em;
+        }
+
+        .contact-link .link-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .contact-link .link-value {
+            color: var(--text-primary);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--border-light);
+            background: var(--bg-card-hover);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.03);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            align-self: flex-start;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-text {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* Stagger children */
+        .stagger-children .reveal {
+            transition-delay: calc(var(--i, 0) * 0.08s);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(10,10,10,0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                transform: translateX(100%);
+                transition: transform var(--transition-smooth);
+            }
+
+            .nav-links.open {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                padding: 12px 24px;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 9vw, 3.5rem);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .about-highlights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            section {
+                padding: 72px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ===== NOISE TEXTURE OVERLAY ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#hero" class="nav-logo">hafiz<span>.dev</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#certifications">Certs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge reveal">
+                    <span class="dot"></span>
+                    Available for projects
+                </div>
+                <h1 class="reveal reveal-delay-1">
+                    <span class="line">Muhammad</span>
+                    <span class="line">Hafiz</span>
+                    <span class="line line-accent">Setiawan.</span>
+                </h1>
+                <p class="hero-tagline reveal reveal-delay-2">
+                    IT Developer & Web Developer based in Jakarta. 
+                    Building digital solutions that matter.
+                </p>
+                <div class="hero-buttons reveal reveal-delay-3">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>Lihat Proyek</span>
+                        <span class="btn-icon">↓</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span>Hubungi Saya</span>
+                        <span class="btn-icon">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+        <div class="container">
+            <span class="section-label reveal">Tentang Saya</span>
+            <h2 class="section-title reveal reveal-delay-1">Membangun solusi digital<br>dengan presisi.</h2>
+            <div class="about-grid">
+                <div class="about-text reveal reveal-delay-2">
+                    <p>
+                        Saya adalah seorang IT Developer & Web Developer dengan pengalaman di dunia 
+                        perbankan, IoT, dan pengembangan web. Selama 3 tahun bekerja di BCA, saya 
+                        mengasah kemampuan teknis sekaligus soft skill dalam melayani dan menyelesaikan 
+                        masalah secara sistematis.
+                    </p>
+                    <p>
+                        Kini saya mendalami pengembangan web secara freelance, membangun sistem 
+                        yang fungsional dan efisien — dari monitoring gas industri hingga 
+                        sistem keuangan UMKM. Saya percaya teknologi harus bekerja untuk manusia, 
+                        bukan sebaliknya.
+                    </p>
+                </div>
+                <div class="about-highlights stagger-children">
+                    <div class="highlight-card reveal" style="--i:0">
+                        <div class="highlight-number">3+</div>
+                        <div class="highlight-label">Tahun di BCA</div>
+                    </div>
+                    <div class="highlight-card reveal" style="--i:1">
+                        <div class="highlight-number">4+</div>
+                        <div class="highlight-label">Proyek Selesai</div>
+                    </div>
+                    <div class="highlight-card reveal" style="--i:2">
+                        <div class="highlight-number">2</div>
+                        <div class="highlight-label">Sertifikasi Google</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <span class="section-label reveal">Keahlian</span>
+            <h2 class="section-title reveal reveal-delay-1">Tools & teknologi<br>yang saya kuasai.</h2>
+            <div class="skills-grid stagger-children">
+                <div class="skill-pill reveal" style="--i:0">
+                    <span class="skill-icon">⟨/⟩</span> PHP
+                </div>
+                <div class="skill-pill reveal" style="--i:1">
+                    <span class="skill-icon">🐍</span> Python
+                </div>
+                <div class="skill-pill reveal" style="--i:2">
+                    <span class="skill-icon">🗄</span> MySQL
+                </div>
+                <div class="skill-pill reveal" style="--i:3">
+                    <span class="skill-icon">⚡</span> JavaScript
+                </div>
+                <div class="skill-pill reveal" style="--i:4">
+                    <span class="skill-icon">◇</span> HTML / CSS
+                </div>
+                <div class="skill-pill reveal" style="--i:5">
+                    <span class="skill-icon">📡</span> IoT — ESP32 / Arduino
+                </div>
+                <div class="skill-pill reveal" style="--i:6">
+                    <span class="skill-icon">🛠</span> IT Support
+                </div>
+                <div class="skill-pill reveal" style="--i:7">
+                    <span class="skill-icon">🎨</span> Desain Grafis
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <span class="section-label reveal">Proyek</span>
+            <h2 class="section-title reveal reveal-delay-1">Karya yang pernah<br>saya bangun.</h2>
+            <p class="section-desc reveal reveal-delay-2">
+                Setiap proyek adalah cerita — dari identifikasi masalah, desain solusi, 
+                hingga implementasi yang berdampak.
+            </p>
+            <div class="projects-grid stagger-children">
+                <div class="project-card reveal" style="--i:0">
+                    <div class="project-index">01</div>
+                    <h3 class="project-title">Sistem Monitoring Gas CNG Real-Time</h3>
+                    <div class="project-client">PT Gastera Prima Energi</div>
+                    <p class="project-desc">
+                        Sistem monitoring berbasis IoT untuk memantau tekanan dan aliran gas CNG secara 
+                        real-time. Dashboard interaktif dengan alert otomatis untuk keamanan operasional.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">IoT</span>
+                        <span class="project-tag">ESP32</span>
+                        <span class="project-tag">PHP</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Real-Time</span>
+                    </div>
+                </div>
+                <div class="project-card reveal" style="--i:1">
+                    <div class="project-index">02</div>
+                    <h3 class="project-title">Sistem IoT Saklar Jarak Jauh</h3>
+                    <div class="project-client">DAAI TV</div>
+                    <p class="project-desc">
+                        Solusi smart switch berbasis IoT yang memungkinkan kontrol perangkat elektronik 
+                        secara remote. Dibangun untuk efisiensi operasional studio televisi.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">IoT</span>
+                        <span class="project-tag">Arduino</span>
+                        <span class="project-tag">Remote Control</span>
+                        <span class="project-tag">Automation</span>
+                    </div>
+                </div>
+                <div class="project-card reveal" style="--i:2">
+                    <div class="project-index">03</div>
+                    <h3 class="project-title">Joveli Finance Hub</h3>
+                    <div class="project-client">Personal Project</div>
+                    <p class="project-desc">
+                        Platform manajemen keuangan dengan fitur pencatatan transaksi, 
+                        laporan visual, dan analisis pengeluaran. UI modern dan intuitif.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">PHP</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Finance</span>
+                    </div>
+                </div>
+                <div class="project-card reveal" style="--i:3">
+                    <div class="project-index">04</div>
+                    <h3 class="project-title">Sticky Milk</h3>
+                    <div class="project-client">Sistem Informasi Keuangan MSME</div>
+                    <p class="project-desc">
+                        Sistem informasi keuangan yang dirancang khusus untuk UMKM. 
+                        Fitur lengkap dari pencatatan harian hingga laporan bulanan otomatis.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">PHP</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">UMKM</span>
+                        <span class="project-tag">Accounting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <span class="section-label reveal">Pengalaman</span>
+            <h2 class="section-title reveal reveal-delay-1">Perjalanan karir<br>saya sejauh ini.</h2>
+            <div class="timeline stagger-children">
+                <div class="timeline-item reveal" style="--i:0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026 — Sekarang</div>
+                    <h3 class="timeline-role">Freelance Web Developer</h3>
+                    <div class="timeline-company">Self-employed</div>
+                    <p class="timeline-desc">
+                        Mengembangkan solusi web dan IoT untuk berbagai klien. Fokus pada 
+                        sistem monitoring, aplikasi keuangan, dan automasi. Mengelola proyek 
+                        dari konsep hingga deployment.
+                    </p>
+                </div>
+                <div class="timeline-item reveal" style="--i:1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023 — 2026</div>
+                    <h3 class="timeline-role">Teller & IT Support</h3>
+                    <div class="timeline-company">Bank Central Asia (BCA)</div>
+                    <p class="timeline-desc">
+                        Bertanggung jawab atas operasional teller dan dukungan teknis IT. 
+                        Menangani troubleshooting perangkat keras dan lunak, serta memastikan 
+                        kelancaran sistem perbankan harian.
+                    </p>
+                </div>
+                <div class="timeline-item reveal" style="--i:2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2019 — 2021</div>
+                    <h3 class="timeline-role">Staff Administrasi</h3>
+                    <div class="timeline-company">SDIT Almaka</div>
+                    <p class="timeline-desc">
+                        Mengelola administrasi sekolah termasuk data siswa, keuangan, 
+                        dan dokumentasi. Membantu digitalisasi proses administrasi internal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CERTIFICATIONS ===== -->
+    <section class="certifications" id="certifications">
+        <div class="container">
+            <span class="section-label reveal">Sertifikasi</span>
+            <h2 class="section-title reveal reveal-delay-1">Kredensial<br>profesional.</h2>
+            <div class="certs-grid stagger-children">
+                <div class="cert-card reveal" style="--i:0">
+                    <div class="cert-issuer">
+                        <span class="google-dots">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                        Google — Coursera
+                    </div>
+                    <h3 class="cert-title">Google IT Support Professional Certificate</h3>
+                    <p class="cert-meta">Technical Support Fundamentals, Networking, System Administration, Security</p>
+                </div>
+                <div class="cert-card reveal" style="--i:1">
+                    <div class="cert-issuer">
+                        <span class="google-dots">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                        Google — Coursera
+                    </div>
+                    <h3 class="cert-title">Google IT Automation with Python Professional Certificate</h3>
+                    <p class="cert-meta">Python, Git & GitHub, Automation, Configuration Management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <span class="section-label reveal">Kontak</span>
+            <h2 class="section-title reveal reveal-delay-1">Mari bekerja<br>sama.</h2>
+            <p class="section-desc reveal reveal-delay-2">
+                Punya proyek menarik atau ingin berdiskusi? Saya selalu terbuka 
+                untuk kesempatan baru.
+            </p>
+            <div class="contact-grid">
+                <div class="contact-info reveal reveal-delay-3">
+                    <a href="mailto:sahalfannani1996@gmail.com" class="contact-link" id="contact-email">
+                        <span class="link-icon">✉</span>
+                        <div>
+                            <div class="link-label">Email</div>
+                            <div class="link-value">sahalfannani1996@gmail.com</div>
+                        </div>
+                    </a>
+                    <a href="https://linkedin.com/in/muhammadhafizsetiawan" target="_blank" rel="noopener" class="contact-link" id="contact-linkedin">
+                        <span class="link-icon">in</span>
+                        <div>
+                            <div class="link-label">LinkedIn</div>
+                            <div class="link-value">linkedin.com/in/muhammadhafizsetiawan</div>
+                        </div>
+                    </a>
+                </div>
+                <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="form-name">Nama</label>
+                        <input type="text" id="form-name" name="name" placeholder="Nama lengkap Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-email">Email</label>
+                        <input type="email" id="form-email" name="email" placeholder="email@contoh.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-message">Pesan</label>
+                        <textarea id="form-message" name="message" placeholder="Ceritakan tentang proyek Anda..." required></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-primary" id="btn-submit">
+                            <span>Kirim Pesan</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">© 2026 Muhammad Hafiz Setiawan. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="mailto:sahalfannani1996@gmail.com">Email</a>
+                    <a href="https://linkedin.com/in/muhammadhafizsetiawan" target="_blank" rel="noopener">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section');
+
+        function updateNavbar() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // ===== ACTIVE SECTION HIGHLIGHTING =====
+        function updateActiveLink() {
+            let currentSection = '';
+            const scrollPos = window.scrollY + window.innerHeight / 3;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // ===== SCROLL REVEAL ANIMATION =====
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function revealOnScroll() {
+            const windowHeight = window.innerHeight;
+            const revealPoint = 80;
+
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        // ===== MOBILE NAV TOGGLE =====
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('open');
+            document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close mobile nav on link click
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ===== CONTACT FORM HANDLER =====
+        function handleSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const message = document.getElementById('form-message').value;
+
+            const subject = encodeURIComponent('Pesan dari Portfolio — ' + name);
+            const body = encodeURIComponent(
+                'Nama: ' + name + '\n' +
+                'Email: ' + email + '\n\n' +
+                message
+            );
+
+            window.location.href = 'mailto:sahalfannani1996@gmail.com?subject=' + subject + '&body=' + body;
+        }
+
+        // ===== SCROLL EVENT LISTENERS =====
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateNavbar();
+                    updateActiveLink();
+                    revealOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ===== INITIAL CALLS =====
+        window.addEventListener('DOMContentLoaded', () => {
+            updateNavbar();
+            revealOnScroll();
+            updateActiveLink();
+        });
+
+        // Trigger hero animations immediately
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                revealOnScroll();
+            }, 100);
+        });
+    </script>
+</body>
+</html>
