@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Hafiz Setiawan — IT Developer & Web Developer</title>
-    <meta name="description" content="Portfolio profesional Muhammad Hafiz Setiawan — IT Developer & Web Developer berbasis di Jakarta. Spesialisasi PHP, Python, IoT, dan IT Support.">
-    <meta name="keywords" content="web developer, IT developer, Jakarta, PHP, Python, IoT, portfolio">
+    <title>Muhammad Hafiz Setiawan &mdash; Web Developer &amp; IT Manager</title>
+    <meta name="description" content="Portfolio profesional Muhammad Hafiz Setiawan &mdash; Web Developer &amp; IT Manager berbasis di Jakarta. Spesialisasi PHP, Laravel, Python, IoT, dan dashboard real-time.">
+    <meta name="keywords" content="web developer, IT manager, Jakarta, PHP, Laravel, Python, IoT, ESP32, portfolio">
     <meta name="author" content="Muhammad Hafiz Setiawan">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -231,6 +231,27 @@
             line-height: 1.8;
         }
 
+        .subsection-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-top: 48px;
+            margin-bottom: 20px;
+        }
+
+        .subsection-label::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
@@ -440,6 +461,7 @@
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: 4px;
+            font-variant-numeric: tabular-nums;
         }
 
         .highlight-label {
@@ -656,7 +678,7 @@
 
         .certs-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 16px;
             margin-top: 40px;
         }
@@ -715,6 +737,7 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             margin-top: 8px;
+            font-variant-numeric: tabular-nums;
         }
 
         /* ===== CONTACT ===== */
@@ -771,6 +794,7 @@
 
         .contact-link .link-value {
             color: var(--text-primary);
+            word-break: break-word;
         }
 
         .contact-form {
@@ -861,15 +885,78 @@
         }
 
         /* ===== ANIMATIONS ===== */
+        /* offset anchor agar tidak tertutup navbar saat smooth scroll */
+        html {
+            scroll-padding-top: calc(var(--nav-height) + 8px);
+        }
+
+        section {
+            scroll-margin-top: var(--nav-height);
+        }
+
+        /* indikator progres scroll di bawah navbar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.85));
+            z-index: 1001;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .hero-content {
+            will-change: transform, opacity;
+        }
+
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(28px);
+            filter: blur(6px);
+            transition:
+                opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
+            filter: blur(0);
+            will-change: auto;
+        }
+
+        /* di layar kecil blur dilepas supaya tetap ringan */
+        @media (max-width: 768px) {
+            .reveal {
+                filter: none;
+                transform: translateY(22px);
+                transition:
+                    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+        }
+
+        /* hormati preferensi pengguna yang meminimalkan animasi */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            .reveal {
+                opacity: 1;
+                transform: none;
+                filter: none;
+                transition: none;
+            }
+            .hero-scroll-hint,
+            .hero-badge .dot {
+                animation: none;
+            }
         }
 
         .reveal-delay-1 { transition-delay: 0.1s; }
@@ -982,6 +1069,9 @@
 </head>
 <body>
 
+    <!-- ===== SCROLL PROGRESS ===== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
@@ -1016,17 +1106,17 @@
                     <span class="line line-accent">Setiawan.</span>
                 </h1>
                 <p class="hero-tagline reveal reveal-delay-2">
-                    IT Developer & Web Developer based in Jakarta. 
-                    Building digital solutions that matter.
+                    Web Developer &amp; IT Manager based in Jakarta.
+                    Building web systems, real-time dashboards, and IoT integrations.
                 </p>
                 <div class="hero-buttons reveal reveal-delay-3">
                     <a href="#projects" class="btn btn-primary">
                         <span>Lihat Proyek</span>
-                        <span class="btn-icon">↓</span>
+                        <span class="btn-icon">&darr;</span>
                     </a>
                     <a href="#contact" class="btn btn-secondary">
                         <span>Hubungi Saya</span>
-                        <span class="btn-icon">→</span>
+                        <span class="btn-icon">&rarr;</span>
                     </a>
                 </div>
             </div>
@@ -1045,30 +1135,31 @@
             <div class="about-grid">
                 <div class="about-text reveal reveal-delay-2">
                     <p>
-                        Saya adalah seorang IT Developer & Web Developer dengan pengalaman di dunia 
-                        perbankan, IoT, dan pengembangan web. Selama 3 tahun bekerja di BCA, saya 
-                        mengasah kemampuan teknis sekaligus soft skill dalam melayani dan menyelesaikan 
-                        masalah secara sistematis.
+                        Saya lulusan S1 Sistem Informasi (dual degree) yang berfokus pada Web Development,
+                        dengan pengalaman menangani proyek nyata: sistem monitoring gas Gastera, platform
+                        company profile &amp; CMS IWA TV, hingga IoT push button DAAI TV. Keahlian saya
+                        bertumpu pada stack PHP/Laravel/MySQL, integrasi REST API, serta otomatisasi
+                        proses dengan Python.
                     </p>
                     <p>
-                        Kini saya mendalami pengembangan web secara freelance, membangun sistem 
-                        yang fungsional dan efisien — dari monitoring gas industri hingga 
-                        sistem keuangan UMKM. Saya percaya teknologi harus bekerja untuk manusia, 
-                        bukan sebaliknya.
+                        Karier saya dimulai di dunia perbankan sebagai Teller sekaligus IT Support di
+                        Bank Central Asia selama tiga tahun &mdash; pengalaman yang mengasah presisi,
+                        kepatuhan SOP, dan kemampuan troubleshooting. Kini saya mengelola infrastruktur
+                        teknologi PII Quarry sebagai IT Manager, sembari terus membangun proyek web dan IoT.
                     </p>
                 </div>
                 <div class="about-highlights stagger-children">
                     <div class="highlight-card reveal" style="--i:0">
-                        <div class="highlight-number">3+</div>
+                        <div class="highlight-number" data-count="3">3</div>
                         <div class="highlight-label">Tahun di BCA</div>
                     </div>
                     <div class="highlight-card reveal" style="--i:1">
-                        <div class="highlight-number">4+</div>
-                        <div class="highlight-label">Proyek Selesai</div>
+                        <div class="highlight-number" data-count="3">3</div>
+                        <div class="highlight-label">Proyek Web &amp; IoT</div>
                     </div>
                     <div class="highlight-card reveal" style="--i:2">
-                        <div class="highlight-number">2</div>
-                        <div class="highlight-label">Sertifikasi Google</div>
+                        <div class="highlight-number" data-count="3.49">3.49</div>
+                        <div class="highlight-label">IPK S1 Sistem Informasi</div>
                     </div>
                 </div>
             </div>
@@ -1079,31 +1170,43 @@
     <section class="skills" id="skills">
         <div class="container">
             <span class="section-label reveal">Keahlian</span>
-            <h2 class="section-title reveal reveal-delay-1">Tools & teknologi<br>yang saya kuasai.</h2>
+            <h2 class="section-title reveal reveal-delay-1">Tools &amp; teknologi<br>yang saya kuasai.</h2>
             <div class="skills-grid stagger-children">
                 <div class="skill-pill reveal" style="--i:0">
-                    <span class="skill-icon">⟨/⟩</span> PHP
+                    <span class="skill-icon">&#10216;/&#10217;</span> PHP
                 </div>
                 <div class="skill-pill reveal" style="--i:1">
-                    <span class="skill-icon">🐍</span> Python
+                    <span class="skill-icon">&#128013;</span> Python
                 </div>
                 <div class="skill-pill reveal" style="--i:2">
-                    <span class="skill-icon">🗄</span> MySQL
+                    <span class="skill-icon">&#9881;</span> Laravel
                 </div>
                 <div class="skill-pill reveal" style="--i:3">
-                    <span class="skill-icon">⚡</span> JavaScript
+                    <span class="skill-icon">&#128452;</span> MySQL / SQL
                 </div>
                 <div class="skill-pill reveal" style="--i:4">
-                    <span class="skill-icon">◇</span> HTML / CSS
+                    <span class="skill-icon">&#9889;</span> JavaScript
                 </div>
                 <div class="skill-pill reveal" style="--i:5">
-                    <span class="skill-icon">📡</span> IoT — ESP32 / Arduino
+                    <span class="skill-icon">&#9671;</span> HTML / CSS
                 </div>
                 <div class="skill-pill reveal" style="--i:6">
-                    <span class="skill-icon">🛠</span> IT Support
+                    <span class="skill-icon">&#8644;</span> REST API Integration
                 </div>
                 <div class="skill-pill reveal" style="--i:7">
-                    <span class="skill-icon">🎨</span> Desain Grafis
+                    <span class="skill-icon">&#9095;</span> Git
+                </div>
+                <div class="skill-pill reveal" style="--i:8">
+                    <span class="skill-icon">&#128225;</span> ESP32 / Arduino IDE
+                </div>
+                <div class="skill-pill reveal" style="--i:9">
+                    <span class="skill-icon">&#128421;</span> XAMPP / Laragon
+                </div>
+                <div class="skill-pill reveal" style="--i:10">
+                    <span class="skill-icon">&#128736;</span> IT Support
+                </div>
+                <div class="skill-pill reveal" style="--i:11">
+                    <span class="skill-icon">&#127912;</span> Desain Grafis
                 </div>
             </div>
         </div>
@@ -1115,17 +1218,18 @@
             <span class="section-label reveal">Proyek</span>
             <h2 class="section-title reveal reveal-delay-1">Karya yang pernah<br>saya bangun.</h2>
             <p class="section-desc reveal reveal-delay-2">
-                Setiap proyek adalah cerita — dari identifikasi masalah, desain solusi, 
+                Setiap proyek adalah cerita &mdash; dari identifikasi masalah, desain solusi,
                 hingga implementasi yang berdampak.
             </p>
             <div class="projects-grid stagger-children">
                 <div class="project-card reveal" style="--i:0">
-                    <div class="project-index">01</div>
+                    <div class="project-index">01 &middot; Mar 2026 &ndash; Sekarang</div>
                     <h3 class="project-title">Sistem Monitoring Gas CNG Real-Time</h3>
                     <div class="project-client">PT Gastera Prima Energi</div>
                     <p class="project-desc">
-                        Sistem monitoring berbasis IoT untuk memantau tekanan dan aliran gas CNG secara 
-                        real-time. Dashboard interaktif dengan alert otomatis untuk keamanan operasional.
+                        Sistem monitoring aliran gas berbasis IoT terintegrasi, mencakup kalibrasi sensor
+                        fisik dan pengembangan dashboard web interaktif untuk visualisasi data laju aliran
+                        gas secara online dan real-time.
                     </p>
                     <div class="project-tags">
                         <span class="project-tag">IoT</span>
@@ -1136,12 +1240,27 @@
                     </div>
                 </div>
                 <div class="project-card reveal" style="--i:1">
-                    <div class="project-index">02</div>
+                    <div class="project-index">02 &middot; Agu 2026 &ndash; Sekarang</div>
+                    <h3 class="project-title">Company Profile &amp; Custom CMS</h3>
+                    <div class="project-client">IWA TV</div>
+                    <p class="project-desc">
+                        Platform web terintegrasi yang terdiri dari website company profile responsif dan
+                        Custom CMS backend, dirancang untuk memfasilitasi publikasi konten dinamis.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">PHP</span>
+                        <span class="project-tag">Laravel</span>
+                        <span class="project-tag">CMS</span>
+                        <span class="project-tag">MySQL</span>
+                    </div>
+                </div>
+                <div class="project-card reveal" style="--i:2">
+                    <div class="project-index">03 &middot; Mei &ndash; Jul 2026</div>
                     <h3 class="project-title">Sistem IoT Saklar Jarak Jauh</h3>
                     <div class="project-client">DAAI TV</div>
                     <p class="project-desc">
-                        Solusi smart switch berbasis IoT yang memungkinkan kontrol perangkat elektronik 
-                        secara remote. Dibangun untuk efisiensi operasional studio televisi.
+                        Merancang arsitektur IoT push button dan mengintegrasikannya dengan aplikasi web
+                        kendali jarak jauh untuk efisiensi operasional studio.
                     </p>
                     <div class="project-tags">
                         <span class="project-tag">IoT</span>
@@ -1150,22 +1269,6 @@
                         <span class="project-tag">Automation</span>
                     </div>
                 </div>
-                <div class="project-card reveal" style="--i:2">
-                    <div class="project-index">03</div>
-                    <h3 class="project-title">Joveli Finance Hub</h3>
-                    <div class="project-client">Personal Project</div>
-                    <p class="project-desc">
-                        Platform manajemen keuangan dengan fitur pencatatan transaksi, 
-                        laporan visual, dan analisis pengeluaran. UI modern dan intuitif.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">PHP</span>
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">MySQL</span>
-                        <span class="project-tag">Finance</span>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -1178,52 +1281,81 @@
             <div class="timeline stagger-children">
                 <div class="timeline-item reveal" style="--i:0">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2026 — Sekarang</div>
-                    <h3 class="timeline-role">Freelance Web Developer</h3>
-                    <div class="timeline-company">Self-employed</div>
+                    <div class="timeline-date">Agustus 2026 &mdash; Sekarang</div>
+                    <h3 class="timeline-role">IT Manager</h3>
+                    <div class="timeline-company">PII Quarry</div>
                     <p class="timeline-desc">
-                        Mengembangkan solusi web dan IoT untuk berbagai klien. Fokus pada 
-                        sistem monitoring, aplikasi keuangan, dan automasi. Mengelola proyek 
-                        dari konsep hingga deployment.
+                        Mengarahkan pemeliharaan dan pengawasan menyeluruh terhadap arsitektur teknologi
+                        perusahaan, mengelola siklus pengadaan IT dan manajemen aset, serta memastikan
+                        uptime infrastruktur untuk mendukung kontinuitas operasional tambang harian.
                     </p>
                 </div>
                 <div class="timeline-item reveal" style="--i:1">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2023 — 2026</div>
-                    <h3 class="timeline-role">Teller & IT Support</h3>
-                    <div class="timeline-company">Bank Central Asia (BCA)</div>
+                    <div class="timeline-date">Juli 2026 &mdash; Agustus 2026</div>
+                    <h3 class="timeline-role">Web Developer</h3>
+                    <div class="timeline-company">PII Quarry</div>
                     <p class="timeline-desc">
-                        Bertanggung jawab atas operasional teller dan dukungan teknis IT. 
-                        Menangani troubleshooting perangkat keras dan lunak, serta memastikan 
-                        kelancaran sistem perbankan harian.
+                        Pengembangan dan pengelolaan web profil perusahaan, sebelum dipercaya
+                        memegang peran IT Manager.
                     </p>
                 </div>
                 <div class="timeline-item reveal" style="--i:2">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2019 — 2021</div>
-                    <h3 class="timeline-role">Staff Administrasi</h3>
+                    <div class="timeline-date">Januari 2023 &mdash; Januari 2026</div>
+                    <h3 class="timeline-role">Teller</h3>
+                    <div class="timeline-company">Bank Central Asia</div>
+                    <p class="timeline-desc">
+                        Memproses transaksi keuangan harian nasabah (setoran, penarikan, transfer,
+                        pembayaran) dengan akurasi tinggi dan kepatuhan penuh terhadap SOP perbankan.
+                        Mendukung operasional internal sebagai Desainer Grafis, sekaligus berperan
+                        sebagai IT Support cabang: backup CCTV, perbaikan printer, troubleshooting
+                        hardware komputer, dan perbaikan mesin penghitung uang.
+                    </p>
+                </div>
+                <div class="timeline-item reveal" style="--i:3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">September 2019 &mdash; September 2021</div>
+                    <h3 class="timeline-role">Operator Sekolah</h3>
                     <div class="timeline-company">SDIT Almaka</div>
                     <p class="timeline-desc">
-                        Mengelola administrasi sekolah termasuk data siswa, keuangan, 
-                        dan dokumentasi. Membantu digitalisasi proses administrasi internal.
+                        Menginput dan mengelola data murid di aplikasi Dapodik, mendigitalisasi serta
+                        mengarsipkan dokumen agar mudah dilacak, dan menyortir serta mendistribusikan
+                        korespondensi sesuai kebutuhan operasional sekolah.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== CERTIFICATIONS ===== -->
+    <!-- ===== PENDIDIKAN & SERTIFIKASI ===== -->
     <section class="certifications" id="certifications">
         <div class="container">
-            <span class="section-label reveal">Sertifikasi</span>
+            <span class="section-label reveal">Pendidikan &amp; Sertifikasi</span>
             <h2 class="section-title reveal reveal-delay-1">Kredensial<br>profesional.</h2>
-            <div class="certs-grid stagger-children">
+
+            <span class="subsection-label reveal">Pendidikan</span>
+            <div class="certs-grid stagger-children" style="margin-top:0">
+                <div class="cert-card reveal" style="--i:0">
+                    <div class="cert-issuer">Universitas Nusa Mandiri</div>
+                    <h3 class="cert-title">S1 Sistem Informasi &mdash; Dual Degree</h3>
+                    <p class="cert-meta">2025 &ndash; 2026 &middot; IPK 3.49</p>
+                </div>
+                <div class="cert-card reveal" style="--i:1">
+                    <div class="cert-issuer">Universitas Bina Sarana Informatika</div>
+                    <h3 class="cert-title">D3 Sistem Informasi</h3>
+                    <p class="cert-meta">2019 &ndash; 2022 &middot; IPK 3.48</p>
+                </div>
+            </div>
+
+            <span class="subsection-label reveal">Sertifikasi</span>
+            <div class="certs-grid stagger-children" style="margin-top:0">
                 <div class="cert-card reveal" style="--i:0">
                     <div class="cert-issuer">
                         <span class="google-dots">
                             <span></span><span></span><span></span><span></span>
                         </span>
-                        Google — Coursera
+                        Google &mdash; Coursera
                     </div>
                     <h3 class="cert-title">Google IT Support Professional Certificate</h3>
                     <p class="cert-meta">Technical Support Fundamentals, Networking, System Administration, Security</p>
@@ -1233,10 +1365,15 @@
                         <span class="google-dots">
                             <span></span><span></span><span></span><span></span>
                         </span>
-                        Google — Coursera
+                        Google &mdash; Coursera
                     </div>
-                    <h3 class="cert-title">Google IT Automation with Python Professional Certificate</h3>
-                    <p class="cert-meta">Python, Git & GitHub, Automation, Configuration Management</p>
+                    <h3 class="cert-title">Google IT Automation with Python</h3>
+                    <p class="cert-meta">Python, Git &amp; GitHub, Automation, Configuration Management</p>
+                </div>
+                <div class="cert-card reveal" style="--i:2">
+                    <div class="cert-issuer">Sertifikat Pelatihan</div>
+                    <h3 class="cert-title">Membuat dan Mengembangkan Website ala TIA</h3>
+                    <p class="cert-meta">Fundamental pengembangan dan publikasi website</p>
                 </div>
             </div>
         </div>
@@ -1248,13 +1385,13 @@
             <span class="section-label reveal">Kontak</span>
             <h2 class="section-title reveal reveal-delay-1">Mari bekerja<br>sama.</h2>
             <p class="section-desc reveal reveal-delay-2">
-                Punya proyek menarik atau ingin berdiskusi? Saya selalu terbuka 
+                Punya proyek menarik atau ingin berdiskusi? Saya selalu terbuka
                 untuk kesempatan baru.
             </p>
             <div class="contact-grid">
                 <div class="contact-info reveal reveal-delay-3">
                     <a href="mailto:sahalfannani1996@gmail.com" class="contact-link" id="contact-email">
-                        <span class="link-icon">✉</span>
+                        <span class="link-icon">&#9993;</span>
                         <div>
                             <div class="link-label">Email</div>
                             <div class="link-value">sahalfannani1996@gmail.com</div>
@@ -1267,6 +1404,13 @@
                             <div class="link-value">linkedin.com/in/muhammadhafizsetiawan</div>
                         </div>
                     </a>
+                    <div class="contact-link">
+                        <span class="link-icon">&#9679;</span>
+                        <div>
+                            <div class="link-label">Lokasi</div>
+                            <div class="link-value">Kalideres, Jakarta Barat</div>
+                        </div>
+                    </div>
                 </div>
                 <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="handleSubmit(event)">
                     <div class="form-group">
@@ -1284,7 +1428,7 @@
                     <div class="form-submit">
                         <button type="submit" class="btn btn-primary" id="btn-submit">
                             <span>Kirim Pesan</span>
-                            <span class="btn-icon">→</span>
+                            <span class="btn-icon">&rarr;</span>
                         </button>
                     </div>
                 </form>
@@ -1296,7 +1440,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p class="footer-text">© 2026 Muhammad Hafiz Setiawan. All rights reserved.</p>
+                <p class="footer-text">&copy; 2026 Muhammad Hafiz Setiawan. All rights reserved.</p>
                 <div class="footer-links">
                     <a href="mailto:sahalfannani1996@gmail.com">Email</a>
                     <a href="https://linkedin.com/in/muhammadhafizsetiawan" target="_blank" rel="noopener">LinkedIn</a>
@@ -1343,7 +1487,10 @@
 
         // ===== SCROLL REVEAL ANIMATION =====
         const revealElements = document.querySelectorAll('.reveal');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let revealObserver = null;
 
+        // fallback untuk browser lama tanpa IntersectionObserver
         function revealOnScroll() {
             const windowHeight = window.innerHeight;
             const revealPoint = 80;
@@ -1354,6 +1501,87 @@
                     el.classList.add('visible');
                 }
             });
+        }
+
+        if (prefersReducedMotion) {
+            revealElements.forEach(el => el.classList.add('visible'));
+        } else if ('IntersectionObserver' in window) {
+            revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        }
+
+        // ===== ANGKA STATISTIK MENGHITUNG SAAT TERLIHAT =====
+        function animateCount(el) {
+            const raw = el.getAttribute('data-count');
+            const target = parseFloat(raw);
+            const decimals = (raw.split('.')[1] || '').length;
+
+            if (prefersReducedMotion) {
+                el.textContent = target.toFixed(decimals);
+                return;
+            }
+
+            const duration = 1100;
+            let startTime = null;
+
+            function step(timestamp) {
+                if (startTime === null) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = (target * eased).toFixed(decimals);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = target.toFixed(decimals);
+                }
+            }
+
+            el.textContent = (0).toFixed(decimals);
+            requestAnimationFrame(step);
+        }
+
+        const counterElements = document.querySelectorAll('.highlight-number[data-count]');
+
+        if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCount(entry.target);
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counterElements.forEach(el => counterObserver.observe(el));
+        }
+
+        // ===== PROGRES SCROLL + PARALLAX HERO =====
+        const scrollProgress = document.getElementById('scrollProgress');
+        const heroContent = document.querySelector('.hero-content');
+
+        function updateScrollEffects() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+            scrollProgress.style.transform = 'scaleX(' + progress + ')';
+
+            const parallaxOn = !prefersReducedMotion && window.innerWidth > 768;
+
+            if (parallaxOn && scrollTop < window.innerHeight) {
+                heroContent.style.transform = 'translateY(' + (scrollTop * 0.16) + 'px)';
+                heroContent.style.opacity = Math.max(1 - scrollTop / (window.innerHeight * 0.85), 0);
+            } else if (!parallaxOn) {
+                heroContent.style.transform = '';
+                heroContent.style.opacity = '';
+            }
         }
 
         // ===== MOBILE NAV TOGGLE =====
@@ -1382,7 +1610,7 @@
             const email = document.getElementById('form-email').value;
             const message = document.getElementById('form-message').value;
 
-            const subject = encodeURIComponent('Pesan dari Portfolio — ' + name);
+            const subject = encodeURIComponent('Pesan dari Portfolio - ' + name);
             const body = encodeURIComponent(
                 'Nama: ' + name + '\n' +
                 'Email: ' + email + '\n\n' +
@@ -1400,24 +1628,30 @@
                 window.requestAnimationFrame(() => {
                     updateNavbar();
                     updateActiveLink();
-                    revealOnScroll();
+                    updateScrollEffects();
+                    // hanya dipakai bila IntersectionObserver tidak tersedia
+                    if (!revealObserver && !prefersReducedMotion) revealOnScroll();
                     ticking = false;
                 });
                 ticking = true;
             }
-        });
+        }, { passive: true });
+
+        window.addEventListener('resize', updateScrollEffects, { passive: true });
 
         // ===== INITIAL CALLS =====
         window.addEventListener('DOMContentLoaded', () => {
             updateNavbar();
-            revealOnScroll();
             updateActiveLink();
+            updateScrollEffects();
+            if (!revealObserver && !prefersReducedMotion) revealOnScroll();
         });
 
         // Trigger hero animations immediately
         window.addEventListener('load', () => {
             setTimeout(() => {
-                revealOnScroll();
+                updateScrollEffects();
+                if (!revealObserver && !prefersReducedMotion) revealOnScroll();
             }, 100);
         });
     </script>
