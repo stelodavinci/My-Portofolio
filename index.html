@@ -69,15 +69,16 @@ ul, dl, dd { margin: 0; padding: 0; list-style: none; }
 .name { font-family: var(--display); font-stretch: 125%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.5rem, 8.6vw, 6.6rem); line-height: 0.92; letter-spacing: -0.01em; display: flex; flex-direction: column; }
 .name .dim { color: #55544f; }
 .name .dot { color: var(--accent); font-weight: 800; }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
-.lede { font-size: clamp(1.08rem, 1.7vw, 1.3rem); line-height: 1.6; color: var(--fg); max-width: 34ch; text-wrap: pretty; }
+.hero-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; }
+.lede { font-size: clamp(1.08rem, 1.7vw, 1.3rem); line-height: 1.6; color: var(--fg); max-width: 40ch; text-wrap: pretty; }
 .lede span { color: var(--muted); }
-.spec { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
-.spec div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 12px; padding: 13px 18px; border-top: 1px solid var(--line); }
-.spec div:first-child { border-top: 0; }
-.spec dt { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); padding-top: 2px; }
-.spec dd { font-size: 0.95rem; font-weight: 500; }
-.spec dd em { font-style: normal; color: var(--accent); }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.facts div { padding: 18px 20px 4px 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.facts div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.facts dt { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.facts dd { display: flex; flex-direction: column; gap: 2px; font-size: 1.02rem; font-weight: 600; line-height: 1.35; }
+.facts dd em { font-style: normal; color: var(--accent); }
+.facts dd span { font-weight: 400; font-size: 0.92rem; color: var(--muted); }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; font: inherit; font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: background 0.2s, border-color 0.2s, color 0.2s; }
 .btn.primary { background: var(--fg); color: var(--bg); }
@@ -201,7 +202,7 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
 
 /* ===== Responsive ===== */
 @media (max-width: 960px) {
-  .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .sec-grid { grid-template-columns: 1fr; gap: 20px; }
   .proj { grid-template-columns: 1fr; }
   .proj:nth-child(even) .proj-media { order: 0; }
@@ -214,7 +215,11 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
   .nav a { padding: 12px; font-size: 1rem; }
   .status .mono { display: none; }
   .job { grid-template-columns: 1fr; gap: 6px; }
-  .spec div { grid-template-columns: 1fr; gap: 2px; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts div, .facts div + div { padding: 14px 14px 14px 0; border-left: 0; }
+  .facts div:nth-child(even) { padding-left: 14px; border-left: 1px solid var(--line); }
+  .facts div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .hero-row .cta { width: 100%; }
   .proj-meta { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
@@ -259,22 +264,21 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
       <span>Hafiz</span>
       <span class="dim">Setiawan<b class="dot">.</b></span>
     </h1>
-    <div class="hero-grid">
+    <div class="hero-row">
       <p class="lede">Web developer di Jakarta. Saya membangun dasbor real-time, perangkat IoT, dan aplikasi web <span>yang dipakai tim setiap hari untuk menjalankan operasional.</span></p>
-      <dl class="spec">
-        <div><dt>Peran sekarang</dt><dd><em>Web Developer</em> · PII Quarry</dd></div>
-        <div><dt>Basis</dt><dd>Kalideres, Jakarta Barat</dd></div>
-        <div><dt>Stack utama</dt><dd>PHP · Laravel · MySQL · Python</dd></div>
-        <div><dt>Perangkat</dt><dd>ESP32 · Arduino · RTU Teltonika</dd></div>
-        <div><dt>Pendidikan</dt><dd>S1 Sistem Informasi · IPK 3.49</dd></div>
-      </dl>
+      <div class="cta">
+        <a class="btn primary" href="#proyek">Lihat proyek
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+        <a class="btn ghost" href="#kontak">Hubungi saya</a>
+      </div>
     </div>
-    <div class="cta">
-      <a class="btn primary" href="#proyek">Lihat proyek
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-      </a>
-      <a class="btn ghost" href="#kontak">Hubungi saya</a>
-    </div>
+    <dl class="facts">
+      <div><dt>Sekarang</dt><dd><em>Web Developer</em><span>PII Quarry</span></dd></div>
+      <div><dt>Basis</dt><dd>Kalideres<span>Jakarta Barat</span></dd></div>
+      <div><dt>Keahlian inti</dt><dd>PHP · Laravel · MySQL<span>Python · ESP32</span></dd></div>
+      <div><dt>Pendidikan</dt><dd>S1 Sistem Informasi<span>IPK 3.49</span></dd></div>
+    </dl>
   </section>
 
   <section class="sec" id="proyek">
@@ -326,9 +330,7 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
               </dl>
               <ul class="tags"><li>PHP</li><li>Laravel</li><li>MySQL</li><li>CMS</li><li>PWA</li></ul>
               <div class="proj-actions">
-                <button class="btn ghost small" type="button" data-gallery="iwatv" aria-expanded="false" aria-controls="g-iwatv">Lihat 4 layar</button>
-                <a class="btn ghost small" href="https://iwa.co.id" target="_blank" rel="noopener">Buka iwa.co.id ↗</a>
-              </div>
+                <button class="btn ghost small" type="button" data-gallery="iwatv" aria-expanded="false" aria-controls="g-iwatv">Lihat 4 layar</button>              </div>
             </div>
             <div class="gallery" id="g-iwatv" hidden></div>
           </article>
@@ -549,7 +551,7 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
 <script>
 (() => {
   const GALLERY = {
-    iwatv: { kind: 'phone', note: 'Situs live · iwa.co.id', files: ['01-beranda', '02-artikel', '03-vlog', '04-captain-iwa'] },
+    iwatv: { kind: 'phone', note: 'Tampilan situs live', files: ['01-beranda', '02-artikel', '03-vlog', '04-captain-iwa'] },
     sensora: { kind: 'wide', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-dasbor', '03-perangkat-grafik-data', '04-perangkat-tabel-data', '05-perangkat-pengaturan-gauge', '06-laporan-alarm', '07-rtu', '08-manajemen-pengguna'] },
     claire: { kind: 'phone', note: 'Tampilan aplikasi', files: ['02-beranda', '03-daftar-case', '04-detail-case', '05-case-baru', '06-laporan', '07-notifikasi', '08-akun'] },
     pencetin: { kind: 'phone', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-beranda', '03-pengaturan-perangkat', '04-tambah-perangkat', '05-remote-ac', '06-bagikan-perangkat', '07-notifikasi', '08-profil-admin', '09-edit-profil', '10-ganti-password', '11-kelola-sinyal-ir-ac-admin'] },
