@@ -56,7 +56,6 @@ ul, dl, dd { margin: 0; padding: 0; list-style: none; }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(11, 11, 10, 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .top-in { display: flex; align-items: center; gap: 20px; min-height: 64px; flex-wrap: wrap; }
 .plate { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
-.plate-mark { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.06em; padding: 5px 8px; border: 1.5px solid var(--fg); border-radius: 6px; }
 .plate-name { font-weight: 600; font-size: 0.95rem; }
 .nav { display: flex; gap: 2px; }
 .nav a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; }
@@ -234,8 +233,7 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
 <header class="top">
   <div class="wrap top-in">
     <a class="plate" href="#top" aria-label="Kembali ke atas">
-      <span class="plate-mark">MHS</span>
-      <span class="plate-name">Hafiz Setiawan</span>
+      <span class="plate-name">Muhammad Hafiz Setiawan</span>
     </a>
     <nav class="nav" id="nav" aria-label="Navigasi utama">
       <a href="#proyek">Proyek</a>
@@ -283,7 +281,7 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
     <div class="wrap sec-grid">
       <div class="rail">
         <p class="mono rail-label">Proyek</p>
-        <p class="mono rail-note">5 sistem · 2026</p>
+        <p class="mono rail-note">5 sistem · 2025–2026</p>
       </div>
       <div class="sec-body">
         <h2 class="h2">Sistem yang saya bangun dan rawat.</h2>
@@ -346,12 +344,12 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
               <p class="proj-sub">Case management bagasi bandara</p>
               <p class="proj-desc">Aplikasi untuk menangani laporan bagasi bermasalah (AHL, DPR, courtesy) per station. Setiap case punya batas SLA otomatis sesuai prioritas, case yang menua dinaikkan jadi urgent, dan tim bekerja lewat komentar, lampiran PDF, notifikasi, serta laporan.</p>
               <dl class="proj-meta">
-                <div><dt>Periode</dt><dd>Sep – Okt 2026</dd></div>
-                <div><dt>Status</dt><dd>Tahap demo</dd></div>
+                <div><dt>Periode</dt><dd>Sep 2025 – sekarang</dd></div>
+                <div><dt>Cakupan</dt><dd>Aplikasi PWA, panel admin</dd></div>
               </dl>
               <ul class="tags"><li>PHP</li><li>MySQL</li><li>PWA</li><li>SLA</li></ul>
               <div class="proj-actions">
-                <button class="btn ghost small" type="button" data-gallery="claire" aria-expanded="false" aria-controls="g-claire">Lihat 8 layar</button>              </div>
+                <button class="btn ghost small" type="button" data-gallery="claire" aria-expanded="false" aria-controls="g-claire">Lihat 7 layar</button>              </div>
             </div>
             <div class="gallery" id="g-claire" hidden></div>
           </article>
@@ -553,7 +551,7 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
   const GALLERY = {
     iwatv: { kind: 'phone', note: 'Situs live · iwa.co.id', files: ['01-beranda', '02-artikel', '03-vlog', '04-captain-iwa'] },
     sensora: { kind: 'wide', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-dasbor', '03-perangkat-grafik-data', '04-perangkat-tabel-data', '05-perangkat-pengaturan-gauge', '06-laporan-alarm', '07-rtu', '08-manajemen-pengguna'] },
-    claire: { kind: 'phone', note: 'Tampilan aplikasi', files: ['01-masuk', '02-beranda', '03-daftar-case', '04-detail-case', '05-case-baru', '06-laporan', '07-notifikasi', '08-akun'] },
+    claire: { kind: 'phone', note: 'Tampilan aplikasi', files: ['02-beranda', '03-daftar-case', '04-detail-case', '05-case-baru', '06-laporan', '07-notifikasi', '08-akun'] },
     pencetin: { kind: 'phone', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-beranda', '03-pengaturan-perangkat', '04-tambah-perangkat', '05-remote-ac', '06-bagikan-perangkat', '07-notifikasi', '08-profil-admin', '09-edit-profil', '10-ganti-password', '11-kelola-sinyal-ir-ac-admin'] },
     joveli: { kind: 'phone', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-beranda', '03-data-transaksi', '04-pembayaran', '05-laporan-keuangan', '06-akun', '07-pengguna-dan-cabang', '08-ganti-password'] }
   };
