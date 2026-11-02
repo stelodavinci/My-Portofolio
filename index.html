@@ -131,6 +131,7 @@ ul, dl, dd { margin: 0; padding: 0; list-style: none; }
 .shot.phone img { width: 168px; height: auto; }
 .shot.wide span.frame { width: 480px; height: 300px; }
 .shot.wide img { width: 480px; height: auto; }
+.shot.game span.frame { background: #111; }
 .shot small { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; }
 .shot:hover span.frame { border-color: #55554e; }
 
@@ -426,23 +427,25 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
 
           <article class="proj" id="p-demo-nusantara">
             <figure class="proj-media">
-              <img src="assets/projects/demo-nusantara/cover.webp" alt="DEMO NUSANTARA: poster game dan thumbnail map roleplay di Roblox" loading="lazy" width="1600" height="1000">
+              <img src="assets/projects/demo-nusantara/cover.webp" alt="DEMO NUSANTARA: poster game dan adegan demo di depan gedung dewan di dalam map Roblox" loading="lazy" width="1600" height="1000">
               <span class="ph ph-name"><b>DEMO NUSANTARA</b><span class="mono">Game · Roblox</span></span>
             </figure>
             <div class="proj-body">
               <p class="mono proj-kind">Game · Roblox</p>
               <h3 class="proj-title">DEMO NUSANTARA</h3>
               <p class="proj-sub">Game developer perorangan · bersama Nurhikmal</p>
-              <p class="proj-desc">Map roleplay open world di Roblox bertema kota parodi Jakarta Pusat. Pemain memilih peran, berkeliling naik LRT, bus, angkot, atau ojol yang dibayar dengan koin, membeli kendaraan di dealer, dan menjelajah landmark seperti stadion dan monumen. Ada siklus siang dan malam, minimap, panel panduan, serta chat suara, dan semuanya bisa dimainkan di PC maupun HP.</p>
+              <p class="proj-desc">Map roleplay open world di Roblox bertema kota parodi Jakarta Pusat. Pemain memilih peran (karyawan, petani, ojol, atau mahasiswa), berkeliling naik LRT, bus, angkot, atau ojol yang dibayar dengan koin, membeli kendaraan di dealer, dan menjelajah landmark seperti stadion dan monumen. Ada siklus siang dan malam, minimap, panel panduan, serta chat suara, dan semuanya bisa dimainkan di PC maupun HP.</p>
               <dl class="proj-meta">
                 <div><dt>Periode</dt><dd>Nov 2026 – sekarang</dd></div>
                 <div><dt>Cakupan</dt><dd>Desain map, scripting Luau</dd></div>
               </dl>
               <ul class="tags"><li>Roblox Studio</li><li>Luau</li><li>Open world</li><li>Roleplay</li><li>PC &amp; HP</li></ul>
               <div class="proj-actions">
+                <button class="btn ghost small" type="button" data-gallery="demo-nusantara" aria-expanded="false" aria-controls="g-demo-nusantara">Lihat 9 layar</button>
                 <a class="btn ghost small" href="https://www.roblox.com/games/124659135664419/DEMO-NUSANTARA" target="_blank" rel="noopener">Main di Roblox ↗</a>
               </div>
             </div>
+            <div class="gallery" id="g-demo-nusantara" hidden></div>
           </article>
         </div>
       </div>
@@ -619,10 +622,11 @@ form.msg { display: flex; flex-direction: column; gap: 14px; }
     sensora: { kind: 'wide', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-dasbor', '03-perangkat-grafik-data', '04-perangkat-tabel-data', '05-perangkat-pengaturan-gauge', '06-laporan-alarm', '07-rtu', '08-manajemen-pengguna'] },
     claire: { kind: 'phone', note: 'Tampilan aplikasi', files: ['02-beranda', '03-daftar-case', '04-detail-case', '05-case-baru', '06-laporan', '07-notifikasi', '08-akun'] },
     pencetin: { kind: 'phone', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-beranda', '03-pengaturan-perangkat', '04-tambah-perangkat', '05-remote-ac', '06-bagikan-perangkat', '07-notifikasi', '08-profil-admin', '09-edit-profil', '10-ganti-password', '11-kelola-sinyal-ir-ac-admin'] },
-    joveli: { kind: 'phone', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-beranda', '03-data-transaksi', '04-pembayaran', '05-laporan-keuangan', '06-akun', '07-pengguna-dan-cabang', '08-ganti-password'] }
+    joveli: { kind: 'phone', note: 'Desain ulang UI · Okt 2026', files: ['01-masuk', '02-beranda', '03-data-transaksi', '04-pembayaran', '05-laporan-keuangan', '06-akun', '07-pengguna-dan-cabang', '08-ganti-password'] },
+    'demo-nusantara': { kind: 'game', ext: 'jpg', note: 'Capture dari Roblox Studio · Nov 2026', files: ['01-pilih-peran', '02-kota-dari-udara', '03-monumen', '04-bundaran-siang', '05-bundaran-malam', '06-demo-gedung-dewan', '07-stadion-gelora', '08-shelter-ojol', '09-dealer-kendaraan'] }
   };
   const label = (f) => f.replace(/^\d+-/, '').replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
-  const src = (p, f) => 'assets/projects/' + p + '/screens/' + f + '.png';
+  const src = (p, f) => 'assets/projects/' + p + '/screens/' + f + '.' + (GALLERY[p].ext || 'png');
 
   // Jam WIB di header
   const clock = document.getElementById('clock');
